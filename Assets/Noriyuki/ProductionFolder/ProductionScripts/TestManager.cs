@@ -11,9 +11,11 @@ public class TestManager : MonoBehaviour
     [SerializeField] Image upperFrontImage;
     [SerializeField] TextMeshProUGUI upperFrontTextMesh;
     [SerializeField] Animator animator;
+    [SerializeField] Animator animator2;
     [SerializeField] GameObject centerButton;
     //[SerializeField] GameObject mitsurugi;
     [SerializeField] TextMeshProUGUI debugTextMesh;
+    [SerializeField] TextMeshProUGUI debugTextMesh2;
     public int numberOfOrder;//1~10
     private int rndNum;//0~9
     private int[] rndOrders;//0~9
@@ -58,6 +60,7 @@ public class TestManager : MonoBehaviour
         SetUpperRightText();
         SetUpperFlontImage();
         animator.SetInteger("AnimAnimOrder", rndOrders[numberOfOrder-1]);
+        animator2.SetInteger("AnimAnimOrder", rndOrders[numberOfOrder==10?0:numberOfOrder]);
     }
 
     private int FindRnd()
@@ -113,7 +116,9 @@ public class TestManager : MonoBehaviour
         {
             canSlash = 1;
             animator.SetTrigger("AnimAnimStartTg");
-            
+
+            animator2.SetTrigger("AnimAnimStartTg");
+
             StartCoroutine(WaitAndExecute());
             
         }
@@ -148,6 +153,17 @@ public class TestManager : MonoBehaviour
 
             // TextMeshPro UIに表示
             debugTextMesh.text = $"Animation: {animationName}";
+        }
+        if (animator2 != null && debugTextMesh2 != null)
+        {
+            // 現在再生中のステート情報を取得
+            AnimatorStateInfo stateInfo = animator2.GetCurrentAnimatorStateInfo(0);
+
+            // アニメーション名を取得
+            string animationName = animator2.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+
+            // TextMeshPro UIに表示
+            debugTextMesh2.text = $"Animation: {animationName}";
         }
     }
 }
