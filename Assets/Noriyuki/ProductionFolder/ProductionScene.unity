@@ -1080,7 +1080,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 7ce9aceb441e4704c8c58d090a1e4c6a, type: 3}
   m_Controller: {fileID: 9100000, guid: cb16414016d89064ab706367a98bfb66, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -8473,7 +8473,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 7ce9aceb441e4704c8c58d090a1e4c6a, type: 3}
   m_Controller: {fileID: 9100000, guid: cb16414016d89064ab706367a98bfb66, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0

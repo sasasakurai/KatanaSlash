@@ -47,6 +47,7 @@ public class TestManager : MonoBehaviour
 
     public int leftNum;
     public int rightNum;
+    private float waittime;
 
 
 
@@ -72,6 +73,7 @@ public class TestManager : MonoBehaviour
         rndOrders = GetFindRnd();
         rightNum = 2;
         leftNum = 1;
+        waittime = 2.0f;
         //ChangeOrder();
         SetDefaultSlider();
         ChangeOrder2();
@@ -113,14 +115,17 @@ public class TestManager : MonoBehaviour
 
     private void OnTimeScaleChanged(float value)
     {
-        float roundedValue = Mathf.Round(value * 100f) / 100f;
+        float roundedValue = Mathf.Round(value * 10f) / 10f;
 
         // 時間スケールを適用
-        Time.timeScale = roundedValue;
+        //Time.timeScale = roundedValue;
+        rightAnimator.speed = roundedValue;
+        leftAnimator.speed = roundedValue;
         timeSlider.value = roundedValue;
+        waittime = 2f/roundedValue;
 
         // FixedUpdateの間隔を調整（推奨）
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
         SetTimeText(roundedValue);
         //Debug.Log($"Time Scale Set to: {value}");
     }
@@ -314,7 +319,7 @@ public class TestManager : MonoBehaviour
     private IEnumerator WaitAndExecute()
     {
         SetUpperFlontImage();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(waittime);
         canSlash = 0;
         SetUpperFlontImage();
     }
@@ -353,7 +358,7 @@ public class TestManager : MonoBehaviour
 
     private void SetTimeText(float timeF)
     {
-        timeTextMesh.text = "現在のゲーム速度："+timeF+"倍速";
+        timeTextMesh.text = "現在のアニメーション速度："+timeF+"倍速";
     }
 
     private void ShowCurrentAnimName()
