@@ -60,36 +60,46 @@ public class Button : MonoBehaviour
         }
     }
 
-    public void OnClickTestNext()
-    {
-        if (testManager.GetComponent<TestManager>().numberOfOrder + 1 > GameManager.Instance.allAnimNum)
-        {
-            GameManager.Instance.WhenStateChanged(GameManager.GameState.LookBack);
-        }
-        else
-        {
-            testManager.GetComponent<TestManager>().numberOfOrder++;
-            testManager.GetComponent<TestManager>().ChangeOrder();
-        }
+    //public void OnClickTestNext()
+    //{
+    //    if (testManager.GetComponent<TestManager>().numberOfOrder + 1 > GameManager.Instance.allAnimNum)
+    //    {
+    //        GameManager.Instance.WhenStateChanged(GameManager.GameState.LookBack);
+    //    }
+    //    else
+    //    {
+    //        testManager.GetComponent<TestManager>().numberOfOrder++;
+    //        testManager.GetComponent<TestManager>().ChangeOrder();
+    //    }
         
-    }
-    public void OnClickTestBack()
-    {
-        if (testManager.GetComponent<TestManager>().numberOfOrder > 1)
-        {
-            testManager.GetComponent<TestManager>().numberOfOrder = testManager.GetComponent<TestManager>().numberOfOrder - 1;
-            testManager.GetComponent<TestManager>().ChangeOrder();
-        }
-        else
-        {
+    //}
+    //public void OnClickTestBack()
+    //{
+    //    if (testManager.GetComponent<TestManager>().numberOfOrder > 1)
+    //    {
+    //        testManager.GetComponent<TestManager>().numberOfOrder = testManager.GetComponent<TestManager>().numberOfOrder - 1;
+    //        testManager.GetComponent<TestManager>().ChangeOrder();
+    //    }
+    //    else
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     public void OnClickTestCenter()
     {
         testManager.GetComponent<TestManager>().Slash();
     }
+
+    public void OnCLickTestRightNum(int num)
+    {
+        testManager.GetComponent<TestManager>().TryToChangeRightNum(num);
+    }
+    public void OnCLickTestLeftNum(int num)
+    {
+        testManager.GetComponent<TestManager>().TryToChangeLeftNum(num);
+    }
+
 
     public void OnClickLookBackNext()
     {
