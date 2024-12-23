@@ -73,7 +73,7 @@ public class TestManager : MonoBehaviour
         rndOrders = GetFindRnd();
         rightNum = 2;
         leftNum = 1;
-        waittime = 2.0f;
+        waittime = 1.0f;
         //ChangeOrder();
         SetDefaultSlider();
         ChangeOrder2();
@@ -122,7 +122,7 @@ public class TestManager : MonoBehaviour
         rightAnimator.speed = roundedValue;
         leftAnimator.speed = roundedValue;
         timeSlider.value = roundedValue;
-        waittime = 2f/roundedValue;
+        waittime = 1f/roundedValue;
 
         // FixedUpdate‚ÌŠÔŠu‚ğ’²®i„§j
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
