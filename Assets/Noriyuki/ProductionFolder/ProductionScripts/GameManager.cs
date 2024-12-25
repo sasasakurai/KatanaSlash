@@ -13,19 +13,33 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         LookBack
     }
 
-    public int allAnimNum = 10;
-    private int[] rnd0 = { 9, 7, 2, 3, 6, 1, 8, 0, 4, 5 };
-    private int[] rnd1 = { 4, 5, 1, 6, 3, 2, 8, 0, 9, 7 };
-    private int[] rnd2 = { 8, 1, 2, 7, 5, 4, 9, 6, 0, 3 };
-    private int[] rnd3 = { 3, 0, 1, 9, 7, 6, 5, 4, 8, 2 };
-    private int[] rnd4 = { 7, 3, 8, 0, 2, 5, 6, 4, 9, 1 };
-    private int[] rnd5 = { 3, 5, 6, 4, 8, 7, 9, 2, 1, 0 };
-    private int[] rnd6 = { 7, 3, 2, 6, 8, 4, 9, 1, 5, 0 };
-    private int[] rnd7 = { 1, 4, 3, 7, 9, 8, 5, 6, 2, 0 };
-    private int[] rnd8 = { 1, 2, 6, 9, 3, 8, 7, 0, 5, 4 };
-    private int[] rnd9 = { 8, 6, 4, 1, 7, 0, 5, 9, 2, 3 };
+    public int allAnimNum = 5;
+    private int[] rnd0 = { 3, 2, 1, 4, 0 };
+    private int[] rnd1 = { 4, 2, 1, 0, 3 };
+    private int[] rnd2 = { 3, 0, 2, 1, 4 };
+    private int[] rnd3 = { 4, 2, 3, 1, 0 };
+    private int[] rnd4 = { 2, 4, 3, 1, 0 };
+    private int[] rnd5 = { 4, 2, 0, 3, 1 };
+    private int[] rnd6 = { 0, 1, 3, 2, 4 };
+    private int[] rnd7 = { 0, 4, 2, 1, 3 };
+    private int[] rnd8 = { 2, 0, 3, 4, 1 };
+    private int[] rnd9 = { 1, 2, 4, 0, 3 };
 
 
+    int[,] rnd10 = { { 0, 4 }, { 2, 3 }, { 0, 2 }, { 1, 4 }, { 1, 2 }, { 3, 4 }, { 0, 1 }, { 0, 3 }, { 2, 4 }, { 1, 3 } };
+    int[,] rnd11 = { { 1, 4 }, { 0, 3 }, { 0, 2 }, { 2, 3 }, { 1, 3 }, { 3, 4 }, { 0, 1 }, { 2, 4 }, { 1, 2 }, { 0, 4 } };
+    int[,] rnd12 = { { 2, 4 }, { 1, 2 }, { 0, 1 }, { 3, 4 }, { 0, 3 }, { 1, 4 }, { 0, 2 }, { 2, 3 }, { 1, 3 }, { 0, 4 } };
+    int[,] rnd13 = { { 0, 4 }, { 1, 2 }, { 2, 3 }, { 0, 3 }, { 1, 4 }, { 3, 4 }, { 0, 1 }, { 1, 3 }, { 2, 4 }, { 0, 2 } };
+    int[,] rnd14 = { { 1, 3 }, { 2, 3 }, { 1, 2 }, { 0, 3 }, { 3, 4 }, { 0, 1 }, { 2, 4 }, { 1, 4 }, { 0, 2 }, { 0, 4 } };
+    int[,] rnd15 = { { 0, 1 }, { 0, 2 }, { 3, 4 }, { 2, 3 }, { 1, 4 }, { 0, 3 }, { 1, 2 }, { 0, 4 }, { 2, 4 }, { 1, 3 } };
+    int[,] rnd16 = { { 1, 4 }, { 0, 2 }, { 3, 4 }, { 0, 3 }, { 0, 1 }, { 2, 4 }, { 2, 3 }, { 1, 2 }, { 1, 3 }, { 0, 4 } };
+    int[,] rnd17 = { { 2, 4 }, { 0, 1 }, { 0, 3 }, { 1, 3 }, { 1, 4 }, { 2, 3 }, { 0, 2 }, { 3, 4 }, { 1, 2 }, { 0, 4 } };
+    int[,] rnd18 = { { 1, 3 }, { 0, 4 }, { 0, 1 }, { 2, 4 }, { 1, 2 }, { 3, 4 }, { 2, 3 }, { 1, 4 }, { 0, 2 }, { 0, 3 } };
+    int[,] rnd19 = { { 1, 2 }, { 0, 1 }, { 2, 3 }, { 0, 4 }, { 1, 4 }, { 0, 3 }, { 3, 4 }, { 1, 3 }, { 2, 4 }, { 0, 2 } };
+
+
+    public int[,] anserNum;
+    public int highestNum;
 
 
     public int TestNumber;
@@ -57,6 +71,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         TestNumber = 0;
         AnimOrder = 0;
+        highestNum = 0;
+        anserNum = new int[10, 3];
         WhenStateChanged(GameState.Title);
     }
 
@@ -119,7 +135,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void ChangedFromStart()
     {
-        TestNumber = UnityEngine.Random.Range(0, 100);
+        TestNumber = UnityEngine.Random.Range(10, 100);
     }
         
     private void ChangedFromContinue()
@@ -175,6 +191,46 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public int[] Getrnd9()
     {
         return rnd9;
+    }
+    public int[,] Getrnd10()
+    {
+        return rnd10;
+    }
+    public int[,] Getrnd11()
+    {
+        return rnd11;
+    }
+    public int[,] Getrnd12()
+    {
+        return rnd12;
+    }
+    public int[,] Getrnd13()
+    {
+        return rnd13;
+    }
+    public int[,] Getrnd14()
+    {
+        return rnd14;
+    }
+    public int[,] Getrnd15()
+    {
+        return rnd15;
+    }
+    public int[,] Getrnd16()
+    {
+        return rnd16;
+    }
+    public int[,] Getrnd17()
+    {
+        return rnd17;
+    }
+    public int[,] Getrnd18()
+    {
+        return rnd18;
+    }
+    public int[,] Getrnd19()
+    {
+        return rnd19;
     }
 
 }

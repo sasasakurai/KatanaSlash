@@ -60,31 +60,31 @@ public class Button : MonoBehaviour
         }
     }
 
-    //public void OnClickTestNext()
-    //{
-    //    if (testManager.GetComponent<TestManager>().numberOfOrder + 1 > GameManager.Instance.allAnimNum)
-    //    {
-    //        GameManager.Instance.WhenStateChanged(GameManager.GameState.LookBack);
-    //    }
-    //    else
-    //    {
-    //        testManager.GetComponent<TestManager>().numberOfOrder++;
-    //        testManager.GetComponent<TestManager>().ChangeOrder();
-    //    }
-        
-    //}
-    //public void OnClickTestBack()
-    //{
-    //    if (testManager.GetComponent<TestManager>().numberOfOrder > 1)
-    //    {
-    //        testManager.GetComponent<TestManager>().numberOfOrder = testManager.GetComponent<TestManager>().numberOfOrder - 1;
-    //        testManager.GetComponent<TestManager>().ChangeOrder();
-    //    }
-    //    else
-    //    {
+    public void OnClickTestNext()
+    {
+        if (testManager.GetComponent<TestManager>().numberOfOrder + 1 > GameManager.Instance.allAnimNum)
+        {
+            GameManager.Instance.WhenStateChanged(GameManager.GameState.LookBack);
+        }
+        else
+        {
+            testManager.GetComponent<TestManager>().numberOfOrder++;
+            testManager.GetComponent<TestManager>().ChangeOrder3();
+        }
 
-    //    }
-    //}
+    }
+    public void OnClickTestBack()
+    {
+        if (testManager.GetComponent<TestManager>().numberOfOrder > 1)
+        {
+            testManager.GetComponent<TestManager>().numberOfOrder = testManager.GetComponent<TestManager>().numberOfOrder - 1;
+            testManager.GetComponent<TestManager>().ChangeOrder3();
+        }
+        else
+        {
+
+        }
+    }
 
     public void OnClickTestCenter()
     {
@@ -98,6 +98,20 @@ public class Button : MonoBehaviour
     public void OnCLickTestLeftNum(int num)
     {
         testManager.GetComponent<TestManager>().TryToChangeLeftNum(num);
+    }
+
+    public void OnClickTestNewLeft(int num)
+    {
+        testManager.GetComponent<TestManager>().ChangeAnserNum(num, 1);
+    }
+    public void OnClickTestNewRight(int num)
+    {
+        testManager.GetComponent<TestManager>().ChangeAnserNum(num, 2);
+    }
+
+    public void OnClickTestTime(float f)
+    {
+        testManager.GetComponent<TestManager>().ClickTimeChangeButton(f);
     }
 
 

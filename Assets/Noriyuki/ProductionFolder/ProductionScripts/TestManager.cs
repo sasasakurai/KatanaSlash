@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,7 @@ public class TestManager : MonoBehaviour
     [SerializeField] GameObject leftButton10;
     [SerializeField] GameObject rightButton1;
     [SerializeField] GameObject rightButton2;
-    [SerializeField] GameObject  rightButton3;
+    [SerializeField] GameObject rightButton3;
     [SerializeField] GameObject rightButton4;
     [SerializeField] GameObject rightButton5;
     [SerializeField] GameObject rightButton6;
@@ -38,11 +39,30 @@ public class TestManager : MonoBehaviour
     [SerializeField] GameObject rightButton9;
     [SerializeField] GameObject rightButton10;
 
+    [SerializeField] GameObject nextButton;
+    [SerializeField] GameObject backButton;
+
+    [SerializeField] GameObject OneLeftButton;
+    [SerializeField] GameObject OneRightButton;
+    [SerializeField] GameObject TwoLeftButton;
+    [SerializeField] GameObject TwoRightButton;
+    [SerializeField] GameObject ThreeLeftButton;
+    [SerializeField] GameObject ThreeRightButton;
+
+    [SerializeField] GameObject TimeButton1;
+    [SerializeField] GameObject TimeButton05;
+    [SerializeField] GameObject TimeButton02;
+
+
+
     [SerializeField] Slider timeSlider;
 
     public int numberOfOrder;//1~10
     private int rndNum;//0~9
     private int[] rndOrders;//0~9
+
+    private int[,] rndNewOrders;
+
     public int canSlash = 0;//0yes.1no
 
     public int leftNum;
@@ -70,13 +90,15 @@ public class TestManager : MonoBehaviour
     {
         numberOfOrder = 1;
         rndNum = FindRnd();
-        rndOrders = GetFindRnd();
-        rightNum = 2;
-        leftNum = 1;
+        //rndOrders = GetFindRnd();
+        rndNewOrders=GetFindNewRnd();
+        //rightNum = 2;
+        //leftNum = 1;
         waittime = 1.0f;
         //ChangeOrder();
         SetDefaultSlider();
-        ChangeOrder2();
+        //ChangeOrder2();
+        ChangeOrder3();
     }
     //private void SetUpperRightText()
     //{
@@ -104,6 +126,17 @@ public class TestManager : MonoBehaviour
         leftAnimator.SetInteger("AnimAnimOrder", rndOrders[leftNum - 1]);
     }
 
+    public void ChangeOrder3()
+    {
+        ChangeButtonColor();
+        CheckHighest();
+        ShowNextButton();
+        SetUpperLeftText();
+        SetUpperFlontImage();
+        rightAnimator.SetInteger("AnimAnimOrder", rndNewOrders[numberOfOrder - 1, 1]);
+        leftAnimator.SetInteger("AnimAnimOrder", rndNewOrders[numberOfOrder - 1, 0]);
+    }
+
     private void SetDefaultSlider()
     {
         timeSlider.minValue = 0.1f;
@@ -113,22 +146,134 @@ public class TestManager : MonoBehaviour
         SetTimeText(1.0f);
     }
 
+
+    public void ClickTimeChangeButton(float newtime)
+    {
+        Time.timeScale = newtime;
+        timeSlider.value = newtime;
+        rightAnimator.speed = newtime;
+        leftAnimator.speed = newtime;
+        //Debug.Log($"Time Scale Set to: {Time.timeScale}");
+    }
     private void OnTimeScaleChanged(float value)
     {
-        float roundedValue = Mathf.Round(value * 10f) / 10f;
+        float roundedValue = Mathf.Round(value * 10f)/10f;
 
         // 時間スケールを適用
-        //Time.timeScale = roundedValue;
+        Time.timeScale = roundedValue;
         rightAnimator.speed = roundedValue;
         leftAnimator.speed = roundedValue;
         timeSlider.value = roundedValue;
         waittime = 1f/roundedValue;
 
         // FixedUpdateの間隔を調整（推奨）
-        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
         SetTimeText(roundedValue);
-        //Debug.Log($"Time Scale Set to: {value}");
+        //Debug.Log($"Time Scale Set to: {roundedValue}");
     }
+
+    private void CheckHighest()
+    {
+        if (GameManager.Instance.anserNum[GameManager.Instance.highestNum,0] > 0&& GameManager.Instance.anserNum[GameManager.Instance.highestNum, 1] > 0&& GameManager.Instance.anserNum[GameManager.Instance.highestNum, 2] > 0) 
+        {
+            if (GameManager.Instance.highestNum < 10)
+            {
+                GameManager.Instance.highestNum++;
+                //Debug.Log(GameManager.Instance.highestNum);
+            }
+            
+        }
+    }
+    private void ShowNextButton()
+    {
+        if (numberOfOrder <= GameManager.Instance.highestNum)
+        {
+            nextButton.SetActive(true);
+        }
+        else
+        {
+            nextButton.SetActive(false);
+        }
+    }
+
+    public void ChangeAnserNum(int row,int num)//rowに心地よさとかを0~2、numに左か右かを1~2で。
+    {
+        GameManager.Instance.anserNum[numberOfOrder - 1,row] = num;
+        ChangeOrder3();
+        
+    }
+
+    private void ChangeButtonColor()
+    {
+        if (GameManager.Instance.anserNum[numberOfOrder-1,0] == 0)
+        {
+            OneLeftButton.GetComponent<Image>().color = Color.white;
+            OneRightButton.GetComponent<Image>().color = Color.white;
+            OneLeftButton.GetComponent<Outline>().effectColor = Color.red;
+            OneRightButton.GetComponent<Outline>().effectColor = Color.red;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 0] == 1)
+        {
+            OneLeftButton.GetComponent<Image>().color = Color.green;
+            OneRightButton.GetComponent<Image>().color = Color.white;
+            OneLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            OneRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 0] == 2)
+        {
+            OneLeftButton.GetComponent<Image>().color = Color.white;
+            OneRightButton.GetComponent<Image>().color = Color.green;
+            OneLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            OneRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+        if (GameManager.Instance.anserNum[numberOfOrder - 1, 1] == 0)
+        {
+            TwoLeftButton.GetComponent<Image>().color = Color.white;
+            TwoRightButton.GetComponent<Image>().color = Color.white;
+            TwoLeftButton.GetComponent<Outline>().effectColor = Color.red;
+            TwoRightButton.GetComponent<Outline>().effectColor = Color.red;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 1] == 1)
+        {
+            TwoLeftButton.GetComponent<Image>().color = Color.green;
+            TwoRightButton.GetComponent<Image>().color = Color.white;
+            TwoLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            TwoRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 1] == 2)
+        {
+            TwoLeftButton.GetComponent<Image>().color = Color.white;
+            TwoRightButton.GetComponent<Image>().color = Color.green;
+            TwoLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            TwoRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+        if (GameManager.Instance.anserNum[numberOfOrder - 1, 2] == 0)
+        {
+            ThreeLeftButton.GetComponent<Image>().color = Color.white;
+            ThreeRightButton.GetComponent<Image>().color = Color.white;
+            ThreeLeftButton.GetComponent<Outline>().effectColor = Color.red;
+            ThreeRightButton.GetComponent<Outline>().effectColor = Color.red;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 2] == 1)
+        {
+            ThreeLeftButton.GetComponent<Image>().color = Color.green;
+            ThreeRightButton.GetComponent<Image>().color = Color.white;
+            ThreeLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            ThreeRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+        else if (GameManager.Instance.anserNum[numberOfOrder - 1, 2] == 2)
+        {
+            ThreeLeftButton.GetComponent<Image>().color = Color.white;
+            ThreeRightButton.GetComponent<Image>().color = Color.green;
+            ThreeLeftButton.GetComponent<Outline>().effectColor = Color.black;
+            ThreeRightButton.GetComponent<Outline>().effectColor = Color.black;
+        }
+    }
+
+
+
+
+
 
 
     private void ChangeButttonStatas()
@@ -316,6 +461,52 @@ public class TestManager : MonoBehaviour
             return GameManager.Instance.Getrnd9();
         }
     }
+
+    private int[,] GetFindNewRnd()
+    {
+        if (rndNum == 0)
+        {
+            return GameManager.Instance.Getrnd10();
+        }
+        else if (rndNum == 1)
+        {
+            return GameManager.Instance.Getrnd11();
+        }
+        else if (rndNum == 2)
+        {
+            return GameManager.Instance.Getrnd12();
+        }
+        else if (rndNum == 3)
+        {
+            return GameManager.Instance.Getrnd13();
+        }
+        else if (rndNum == 4)
+        {
+            return GameManager.Instance.Getrnd14();
+        }
+        else if (rndNum == 5)
+        {
+            return GameManager.Instance.Getrnd15();
+        }
+        else if (rndNum == 6)
+        {
+            return GameManager.Instance.Getrnd16();
+        }
+        else if (rndNum == 7)
+        {
+            return GameManager.Instance.Getrnd17();
+        }
+        else if (rndNum == 8)
+        {
+            return GameManager.Instance.Getrnd18();
+        }
+        else
+        {
+            return GameManager.Instance.Getrnd19();
+        }
+    }
+
+
     private IEnumerator WaitAndExecute()
     {
         SetUpperFlontImage();
