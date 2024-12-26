@@ -41,6 +41,7 @@ public class TestManager : MonoBehaviour
 
     [SerializeField] GameObject nextButton;
     [SerializeField] GameObject backButton;
+    [SerializeField] GameObject lookBackButton;
 
     [SerializeField] GameObject OneLeftButton;
     [SerializeField] GameObject OneRightButton;
@@ -135,6 +136,7 @@ public class TestManager : MonoBehaviour
         ChangeButtonColor();
         CheckHighest();
         ShowNextButton();
+        ShowLookBackButton();
         SetUpperLeftText();
         SetUpperRightText();
         SetUpperFlontImage();
@@ -200,6 +202,20 @@ public class TestManager : MonoBehaviour
             nextButton.SetActive(false);
         }
     }
+
+    private void ShowLookBackButton()
+    {
+        if (GameManager.Instance.IsFinish)
+        {
+            lookBackButton.SetActive(true);
+        }
+        else
+        {
+            lookBackButton.SetActive(false);
+        }
+    }
+
+
 
     public void ChangeAnserNum(int row,int num)//rowに心地よさとかを0~2、numに左か右かを1~2で。
     {

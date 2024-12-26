@@ -115,6 +115,13 @@ public class Button : MonoBehaviour
         testManager.GetComponent<TestManager>().ClickTimeChangeButton(f);
     }
 
+    public void OnClickTestLookBack()
+    {
+        GameManager.Instance.WhenStateChanged(GameManager.GameState.LookBack);
+    }
+
+
+
 
     public void OnClickLookBackNext()
     {
