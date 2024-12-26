@@ -13,7 +13,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         LookBack
     }
 
-    public int allAnimNum = 5;
+    public int allAnimNum = 10;
     private int[] rnd0 = { 3, 2, 1, 4, 0 };
     private int[] rnd1 = { 4, 2, 1, 0, 3 };
     private int[] rnd2 = { 3, 0, 2, 1, 4 };
@@ -40,6 +40,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public int[,] anserNum;
     public int highestNum;
+
+    public bool IsFinish;
 
 
     public int TestNumber;
@@ -72,6 +74,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         TestNumber = 0;
         AnimOrder = 0;
         highestNum = 0;
+        IsFinish = false;
         anserNum = new int[10, 3];
         WhenStateChanged(GameState.Title);
     }
@@ -150,7 +153,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void ChangedLookBack()
     {
-        lookBackManager.GetComponent<LookBackManager>().SetTextFirst();
+        IsFinish = true;
+        lookBackManager.GetComponent<LookBackManager>().SetFirst();
     }
     public int[] Getrnd0()
     {

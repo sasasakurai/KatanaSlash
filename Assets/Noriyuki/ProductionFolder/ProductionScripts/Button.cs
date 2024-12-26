@@ -7,6 +7,7 @@ public class Button : MonoBehaviour
     [SerializeField] GameObject startManager;
     [SerializeField] GameObject continuedManager;
     [SerializeField] GameObject testManager;
+    [SerializeField] GameObject lookBackManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -117,13 +118,27 @@ public class Button : MonoBehaviour
 
     public void OnClickLookBackNext()
     {
-        GameManager.Instance.WhenStateChanged(GameManager.GameState.Title);
+        if (lookBackManager.GetComponent<LookBackManager>().pagenum == 0)
+        {
+            lookBackManager.GetComponent<LookBackManager>().NextPage();
+        }
+        else
+        {
+            GameManager.Instance.WhenStateChanged(GameManager.GameState.Title);
+        }
+        
     }
     public void OnClickLookBackBack()
     {
-        GameManager.Instance.WhenStateChanged(GameManager.GameState.InTest);
+
+        lookBackManager.GetComponent<LookBackManager>().BackPage();
     }
 
+    public void OnClickLookBackTestBack(int num)
+    {
+        testManager.GetComponent<TestManager>().isFinishWantNum = lookBackManager.GetComponent<LookBackManager>().pagenum == 0? num:num+5;
+        GameManager.Instance.WhenStateChanged(GameManager.GameState.InTest);
+    }
 
 
 

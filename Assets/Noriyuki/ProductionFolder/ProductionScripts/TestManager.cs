@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class TestManager : MonoBehaviour
 {
-    //[SerializeField] TextMeshProUGUI upperRightTextMesh;
+    [SerializeField] TextMeshProUGUI upperRightTextMesh;
     [SerializeField] TextMeshProUGUI upperLeftTextMesh;
     [SerializeField] TextMeshProUGUI timeTextMesh;
     [SerializeField] Image upperFrontImage;
@@ -61,6 +61,9 @@ public class TestManager : MonoBehaviour
     private int rndNum;//0~9
     private int[] rndOrders;//0~9
 
+    public int isFinishWantNum;
+
+
     private int[,] rndNewOrders;
 
     public int canSlash = 0;//0yes.1no
@@ -89,6 +92,7 @@ public class TestManager : MonoBehaviour
     public void StartTest()
     {
         numberOfOrder = 1;
+        if (GameManager.Instance.IsFinish) { numberOfOrder = isFinishWantNum; }
         rndNum = FindRnd();
         //rndOrders = GetFindRnd();
         rndNewOrders=GetFindNewRnd();
@@ -100,13 +104,13 @@ public class TestManager : MonoBehaviour
         //ChangeOrder2();
         ChangeOrder3();
     }
-    //private void SetUpperRightText()
-    //{
-    //    upperRightTextMesh.text = numberOfOrder+"番目";
-    //}
+    private void SetUpperRightText()
+    {
+        upperRightTextMesh.text = "現在の設問："+numberOfOrder + "番";
+    }
     private void SetUpperLeftText()
     {
-        upperLeftTextMesh.text = "テスト番号："+GameManager.Instance.TestNumber;
+        upperLeftTextMesh.text = "あなたのテスト番号："+GameManager.Instance.TestNumber;
     }
     //public void ChangeOrder()
     //{
@@ -132,6 +136,7 @@ public class TestManager : MonoBehaviour
         CheckHighest();
         ShowNextButton();
         SetUpperLeftText();
+        SetUpperRightText();
         SetUpperFlontImage();
         rightAnimator.SetInteger("AnimAnimOrder", rndNewOrders[numberOfOrder - 1, 1]);
         leftAnimator.SetInteger("AnimAnimOrder", rndNewOrders[numberOfOrder - 1, 0]);
@@ -174,7 +179,7 @@ public class TestManager : MonoBehaviour
 
     private void CheckHighest()
     {
-        if (GameManager.Instance.anserNum[GameManager.Instance.highestNum,0] > 0&& GameManager.Instance.anserNum[GameManager.Instance.highestNum, 1] > 0&& GameManager.Instance.anserNum[GameManager.Instance.highestNum, 2] > 0) 
+        if (GameManager.Instance.anserNum[Mathf.Min(GameManager.Instance.highestNum,9),0] > 0&& GameManager.Instance.anserNum[Mathf.Min(GameManager.Instance.highestNum, 9), 1] > 0&& GameManager.Instance.anserNum[Mathf.Min(GameManager.Instance.highestNum, 9), 2] > 0) 
         {
             if (GameManager.Instance.highestNum < 10)
             {
@@ -542,14 +547,14 @@ public class TestManager : MonoBehaviour
         else
         {
             upperFrontImage.color = Color.red;
-            upperFrontTextMesh.text = "Stay...Stay...Stay...";
+            upperFrontTextMesh.text = "Stay... Stay... Stay...";
             centerButton.SetActive(false);
         }
     }
 
     private void SetTimeText(float timeF)
     {
-        timeTextMesh.text = "現在のアニメーション速度："+timeF+"倍速";
+        timeTextMesh.text = "現在のゲーム速度:"+timeF+"倍速";
     }
 
     private void ShowCurrentAnimName()
