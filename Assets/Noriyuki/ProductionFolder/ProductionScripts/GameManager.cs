@@ -37,11 +37,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     int[,] rnd18 = { { 1, 3 }, { 0, 4 }, { 0, 1 }, { 2, 4 }, { 1, 2 }, { 3, 4 }, { 2, 3 }, { 1, 4 }, { 0, 2 }, { 0, 3 } };
     int[,] rnd19 = { { 1, 2 }, { 0, 1 }, { 2, 3 }, { 0, 4 }, { 1, 4 }, { 0, 3 }, { 3, 4 }, { 1, 3 }, { 2, 4 }, { 0, 2 } };
 
+    public float[] TopPoint = { 90.0f, 147.0f, 97.0f, 118.0f, 68.0f };
+
+
 
     public int[,] anserNum;
     public int highestNum;
 
     public bool IsFinish;
+
+    public bool ShowDebug;
 
 
     public int TestNumber;

@@ -54,6 +54,8 @@ public class TestManager : MonoBehaviour
     [SerializeField] GameObject TimeButton05;
     [SerializeField] GameObject TimeButton02;
 
+    [SerializeField] AudioSource slashSound1;
+    [SerializeField] AudioSource slashSound2;
 
 
     [SerializeField] Slider timeSlider;
@@ -88,7 +90,12 @@ public class TestManager : MonoBehaviour
         //{
         //    Slash();
         //}
-        ShowCurrentAnimName();
+        if (GameManager.Instance.ShowDebug)
+        {
+            ShowCurrentAnimName();
+        }
+
+        
     }
     public void StartTest()
     {
@@ -144,6 +151,51 @@ public class TestManager : MonoBehaviour
         leftAnimator.SetInteger("AnimAnimOrder", rndNewOrders[numberOfOrder - 1, 0]);
     }
 
+    private void PlaySound()
+    {
+        PlayLeftSound();
+        PlayRightSound();
+    }
+    private void PlayLeftSound()
+    {
+        float wait;
+        wait = ConvertFramesToSeconds(GameManager.Instance.TopPoint[rndNewOrders[numberOfOrder - 1, 0]]);
+        //Debug.Log("左"+rndNewOrders[numberOfOrder - 1, 0]+"秒数"+ GameManager.Instance.TopPoint[rndNewOrders[numberOfOrder - 1, 0]]);
+        StartCoroutine(WaitForSecondsCoroutine(wait,0));
+    }
+
+    private void PlayRightSound()
+    {
+        float wait;
+        wait = ConvertFramesToSeconds(GameManager.Instance.TopPoint[rndNewOrders[numberOfOrder - 1, 1]]);
+        //Debug.Log("右" + rndNewOrders[numberOfOrder - 1, 1]+"秒数"+ GameManager.Instance.TopPoint[rndNewOrders[numberOfOrder - 1, 1]]);
+        StartCoroutine(WaitForSecondsCoroutine(wait, 1));
+    }
+    float ConvertFramesToSeconds(float frameValue)
+    {
+        // フレーム数を秒に変換
+        //Debug.Log(frameValue / 600.0f) ;
+        return (frameValue / 600.0f);
+
+    }
+
+    IEnumerator WaitForSecondsCoroutine(float seconds, int leftOrRight)
+    {
+        yield return new WaitForSeconds(seconds);
+        //Debug.Log(seconds + " seconds have passed (timeScale = 0.5)");
+        if(leftOrRight == 0)
+        {
+            slashSound1.panStereo = -1.0f; // -1.0で左、1.0で右
+            slashSound1.Play(); // 音を再生
+        }else if (leftOrRight == 1)
+        {
+            slashSound2.panStereo = 1.0f; // -1.0で左、1.0で右
+            slashSound2.Play(); // 音を再生
+        }
+    }
+
+
+
     private void SetDefaultSlider()
     {
         timeSlider.minValue = 0.1f;
@@ -173,8 +225,6 @@ public class TestManager : MonoBehaviour
         timeSlider.value = roundedValue;
         waittime = 1f/roundedValue;
 
-        // FixedUpdateの間隔を調整（推奨）
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
         SetTimeText(roundedValue);
         //Debug.Log($"Time Scale Set to: {roundedValue}");
     }
@@ -544,7 +594,7 @@ public class TestManager : MonoBehaviour
             rightAnimator.SetTrigger("AnimAnimStartTg");
 
             leftAnimator.SetTrigger("AnimAnimStartTg");
-
+            PlaySound();
             StartCoroutine(WaitAndExecute());
             
         }
