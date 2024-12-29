@@ -28,7 +28,7 @@ public class ContinuedManager : MonoBehaviour
     {
         if (pageNum == 0)
         {
-            textMesh.text = "前回のテスト番号を入力することで、\n同じアニメーションを見ることができます。";
+            textMesh.text = "前回のテスト番号を入力することで、同じアニメーションを見ることができます。\n初回の場合はタイトルへ戻り、始めからを選択してください。";
         }
         else if (pageNum == 1)
         {

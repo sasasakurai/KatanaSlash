@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -14,6 +14,12 @@ public class StartManager : MonoBehaviour
         pageNum = 0;
     }
 
+    public void Initialize()
+    {
+        pageNum = 0;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -24,13 +30,13 @@ public class StartManager : MonoBehaviour
     {
         if(pageNum == 0)
         {
-            textMesh.text = "����́Z�Z�̖ړI�̃e�X�g�ŁA���񂽂炩�񂽂�";
+            textMesh.text = "これは「斬撃表現」に関する卒業研究の一環として行う実験です。\n個人情報などは集計していませんが、アンケートの結果は卒業研究のデータとして利用させていただきます。\nご了承の上、次に進んでください。";
         }else if (pageNum == 1)
         {
-            textMesh.text = "�e�X�g�ԍ��������_���Ŋ���U���܂��B\n���Ȃ��̃e�X�g�ԍ���"+GameManager.Instance.TestNumber+"�ł��B\n���̔ԍ��̓A���P�[�g�ł��m�F���邽�ߊo���Ă����Ă��������B";
+            textMesh.text = "テスト番号がランダムで割り振られます。\n \nあなたのテスト番号は「"+GameManager.Instance.TestNumber+"」です。\nこの番号はアンケートでも回答するため覚えておいてください。\n設問は合計10問あります。";
         }else if(pageNum == 2)
         {
-            textMesh.text = "���̃y�[�W����e�X�g���n�܂�܂��B����U��l�̓������悭���Ă��������B";
+            textMesh.text = "次のページから実験が始まります。\n中央の「斬れ！」のボタンを押すと、左右のキャラクターが同時に刀を振ります。\n \n「よく斬れそうなのは？」「心地よさそうなのは？」「ダメージが大きそうなのは？」\nの3つの質問を行いますので、それぞれ左右どちらかを選んでください。\n \n3つとも回答すると、次の設問へ移行するボタンが右下に出現します。\n画面右にはゲーム速度を変化させられるボタンがあります。\n細かい違いを観察したいときに活用してください。";
         }else if(pageNum==3)
         {
             GameManager.Instance.WhenStateChanged(GameManager.GameState.InTest);

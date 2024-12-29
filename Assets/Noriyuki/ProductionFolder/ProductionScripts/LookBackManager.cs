@@ -33,10 +33,14 @@ public class LookBackManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI RightText4;
     [SerializeField] TextMeshProUGUI RightText5;
 
+    [SerializeField] GameObject LastGroup;
+    [SerializeField] GameObject lastNext;
+    [SerializeField] GameObject lastBack;
 
 
 
     public int pagenum;
+    public int last;
 
 
     // Start is called before the first frame update
@@ -54,6 +58,7 @@ public class LookBackManager : MonoBehaviour
     public void SetFirst()
     {
         pagenum = 0;
+        last = 0;
         SetText();
     }
 
@@ -70,6 +75,7 @@ public class LookBackManager : MonoBehaviour
         ShowBackButton();
         ShowNextButton();
         SetAnswer();
+        ShowLast();
     }
 
     public void NextPage()
@@ -169,5 +175,19 @@ public class LookBackManager : MonoBehaviour
         }
     }
 
+
+
+
+    public void ShowLast()
+    {
+        if (last == 0)
+        {
+            LastGroup.SetActive(false);
+        }
+        else
+        {
+            LastGroup.SetActive(true);
+        }
+    }
 
 }

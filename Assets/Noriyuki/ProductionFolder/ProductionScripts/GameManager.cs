@@ -58,6 +58,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [SerializeField] GameObject FromContinuedGroup;
     [SerializeField] GameObject InTestGroup;
     [SerializeField] GameObject LookBackGroup;
+    [SerializeField] GameObject startManager;
     [SerializeField] GameObject testManager;
     [SerializeField] GameObject lookBackManager;
 
@@ -138,12 +139,24 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     private void ChangedTitle()
     {
+        for (int i = 0; i < anserNum.GetLength(0); i++) // 1次元目のループ
+        {
+            for (int j = 0; j < anserNum.GetLength(1); j++) // 2次元目のループ
+            {
+                anserNum[i, j] = 0; // 各要素を0にリセット
+            }
+        }
+        TestNumber = 0;
+        AnimOrder = 0;
+        highestNum = 0;
+        IsFinish = false;
 
     }
 
     private void ChangedFromStart()
     {
         TestNumber = UnityEngine.Random.Range(10, 100);
+        startManager.GetComponent<StartManager>().Initialize();
     }
         
     private void ChangedFromContinue()
