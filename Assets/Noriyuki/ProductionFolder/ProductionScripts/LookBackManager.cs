@@ -65,12 +65,12 @@ public class LookBackManager : MonoBehaviour
 
     private void SetText()
     {
-        textMesh.text = "以上でテストは終了です。GoogleFormの回答をお願いします。\nこの画面では設問";
+        textMesh.text = "以上で実験は終了です。右のボタンからGoogleFormの回答をお願いします。\nこの画面では設問";
         if(pagenum == 0)
         {
-            textMesh.text += "1～5の回答結果が表示されています。\n右下の「次へ」を押すと6～10問目の回答が表示されます。\nそれぞれの設問を見返す事もできます。\nあなたのテスト番号は"+GameManager.Instance.TestNumber+"です。";
+            textMesh.text += "1～5のあなたの回答結果が表示されています。\n右下の「次へ」を押すと6～10問目の回答が表示されます。\nそれぞれの設問を見返す事もできます。\nあなたのテスト番号は"+GameManager.Instance.TestNumber+"です。";
         }else{
-            textMesh.text += "6～10の回答結果が表示されています。\n右下の「タイトルへ」を押すとタイトルに戻ります。\nそれぞれの設問を見返す事もできます。\nあなたのテスト番号は"+GameManager.Instance.TestNumber+"です。";
+            textMesh.text += "6～10のあなたの回答結果が表示されています。\n右下の「タイトルへ」を押すとタイトルに戻ります。\nそれぞれの設問を見返す事もできます。\nあなたのテスト番号は"+GameManager.Instance.TestNumber+"です。";
         }
         ShowBackButton();
         ShowNextButton();

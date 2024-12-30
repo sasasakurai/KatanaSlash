@@ -8,6 +8,7 @@ public class Button : MonoBehaviour
     [SerializeField] GameObject continuedManager;
     [SerializeField] GameObject testManager;
     [SerializeField] GameObject lookBackManager;
+    [SerializeField] private string googleFormURL;
 
     [SerializeField] AudioSource BSound1;
     [SerializeField] AudioSource BSound2;
@@ -184,6 +185,12 @@ public class Button : MonoBehaviour
         playS2();
         lookBackManager.GetComponent<LookBackManager>().last = 0;
         lookBackManager.GetComponent<LookBackManager>().ShowLast();
+    }
+
+
+    public void OnclickLookBackURL()
+    {
+        Application.OpenURL(googleFormURL);
     }
 
 

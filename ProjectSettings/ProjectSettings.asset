@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: KatanaSlash
+  productName: "\u65AC\u6483\u8868\u73FE\u306B\u95A2\u3059\u308B\u5352\u696D\u7814\u7A76\u5B9F\u9A13"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
