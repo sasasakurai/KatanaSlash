@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,7 +75,8 @@ public class TestManager : MonoBehaviour
     public int rightNum;
     private float waittime;
 
-
+    private Vector3 leftPosition = new Vector3(-3.0f, 0, 0); // 左
+    private Vector3 rightPosition = new Vector3(3.0f, 0, 0); // 右
 
     // Start is called before the first frame update
     void Start()
@@ -184,10 +186,12 @@ public class TestManager : MonoBehaviour
         //Debug.Log(seconds + " seconds have passed (timeScale = 0.5)");
         if(leftOrRight == 0)
         {
+            slashSound1.transform.position = leftPosition;
             slashSound1.panStereo = -1.0f; // -1.0で左、1.0で右
             slashSound1.Play(); // 音を再生
         }else if (leftOrRight == 1)
         {
+            slashSound2.transform.position = rightPosition;
             slashSound2.panStereo = 1.0f; // -1.0で左、1.0で右
             slashSound2.Play(); // 音を再生
         }
